@@ -77,6 +77,9 @@
     <IncludePath>C:\Users\USER\Desktop\GitHub\cppSampleClasses\inc;$(IncludePath)</IncludePath>
     <SourcePath>C:\Users\USER\Desktop\GitHub\cppSampleClasses\src;$(SourcePath)</SourcePath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\Users\HUGIN\Desktop\Software\C++\cppSampleClass\inc;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>

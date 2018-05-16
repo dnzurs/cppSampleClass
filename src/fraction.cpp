@@ -69,6 +69,11 @@ PRIVATE void Fraction::commonCtorFunc(const Fraction &r)
 	nom = r.nom;
 	denom = r.denom;
 
+	if (denom < 0)
+	{
+		nom = -nom;
+	}
+
 	simplify();
 }
 
@@ -144,82 +149,131 @@ PUBLIC Fraction::Fraction(const char *p)
 
 PUBLIC bool operator<(const Fraction &r1, const Fraction &r2)
 {
-	return true;
+	if (r1.denom != r2.denom)
+	{
+		int tempNom1 = r1.nom * r2.denom;
+		int tempNom2 = r2.nom * r1.denom;
+
+		return tempNom1 < tempNom2;
+	}
+	else
+	{
+		return r1.nom < r2.nom;
+	}
 }
 
 PUBLIC bool operator>(const Fraction &r1, const Fraction &r2)
 {
-	return true;
+	return r2 < r1;
 }
 
 PUBLIC bool operator<=(const Fraction &r1, const Fraction &r2)
 {
-	return true;
+	return !(r2 < r1);
 }
 
 PUBLIC bool operator>=(const Fraction &r1, const Fraction &r2)
 {
-	return true;
+	return !(r1 < r2);
 }
 
 PUBLIC bool operator==(const Fraction &r1, const Fraction &r2)
 {
-	return true;
+	return !(r2 < r1) && !(r1 < r2);
 }
 
 PUBLIC bool operator!=(const Fraction &r1, const Fraction &r2)
 {
-	return true;
+	return (r2 < r1) || (r1 < r2);
 }
 
 PUBLIC Fraction operator+(const Fraction &r1, const Fraction &r2)
 {
-	return Fraction{  };
+	if (r1.denom != r2.denom)
+	{
+		int tempDenom = r2.denom * r1.denom;
+		int tempNom1 = r1.nom * tempDenom / r1.denom;
+		int tempNom2 = r2.nom * tempDenom / r2.denom;
+
+		return Fraction{ tempNom1 + tempNom2, tempDenom };
+	}
+	else
+	{
+		return Fraction{ r1.nom + r2.nom, r1.denom };
+	}
 }
 
 PUBLIC Fraction operator-(const Fraction &r1, const Fraction &r2)
 {
-	return Fraction{};
+	if (r1.denom != r2.denom)
+	{
+		int tempDenom = r2.denom * r1.denom;
+		int tempNom1 = r1.nom * tempDenom / r1.denom;
+		int tempNom2 = r2.nom * tempDenom / r2.denom;
+
+		return Fraction{ tempNom1 - tempNom2, tempDenom };
+	}
+	else
+	{
+		return Fraction{ r1.nom - r2.nom, r1.denom };
+	}
 }
 
 PUBLIC Fraction operator*(const Fraction &r1, const Fraction &r2)
 {
-	return Fraction{};
+	return Fraction{ r1.nom * r2.nom, r1.denom * r2.denom };
 }
 
 PUBLIC Fraction operator/(const Fraction &r1, const Fraction &r2)
 {
-	return Fraction{};
+	return Fraction{ r1.nom * r2.denom, r1.denom * r2.nom };
 }
 
 PUBLIC Fraction &Fraction::operator++()
 {
+	nom += denom;
+
 	return *this;
 }
 
 PUBLIC Fraction Fraction::operator++(int)
 {
-	return Fraction{};
+	Fraction temp(*this);
+
+	nom += denom;
+
+	return temp;
 }
 
 PUBLIC Fraction &Fraction::operator--()
 {
+	nom -= denom;
+
 	return *this;
 }
 
 PUBLIC Fraction Fraction::operator--(int)
 {
-	return Fraction{};
+	Fraction temp(*this);
+
+	nom -= denom;
+
+	return temp;
 }
  
 PUBLIC Fraction Fraction::operator+()const
 {
-	return Fraction{};
+	return *this;
 }
 
 PUBLIC Fraction Fraction::operator-()const
 {
-	return Fraction{};
+	if (denom < 0)
+	{
+		-nom;
+	}
+
+	return *this;
 }
  
 /*
@@ -236,28 +290,27 @@ PUBLIC Fraction &Fraction::operator+=(const Fraction &r)
 
 PUBLIC Fraction &Fraction::operator-=(const Fraction &r)
 {
-	return *this;
-
+	return *this = *this - r;
 }
 
 PUBLIC Fraction &Fraction::operator/=(const Fraction &r)
 {
-	return *this;
+	return *this = *this / r;
 }
 
 PUBLIC Fraction &Fraction::operator*=(const Fraction &r)
 {
-	return *this;
+	return *this = *this * r;
 }
  
 PUBLIC std::ostream & operator<<(std::ostream &os, const Fraction &r)
 {
-	return os;
+	return os << r.nom << "/" << r.denom << "\n";
 }
 
 PUBLIC std::istream & operator>>(std::istream &is, Fraction &r)
 {
-	return is;
+	return is >> r.nom >> r.denom;
 }
  
 PUBLIC static Fraction random()
