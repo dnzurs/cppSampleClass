@@ -14,7 +14,10 @@
 //=============================== INCLUDES ===================================//
 //============================================================================//
 #include "fraction.h"
+#include "utility.h"
+
 #include <iostream>
+#include <time.h>
 
 //============================================================================//
 //==========================  MACRO DEFINITIONS ==============================//
@@ -336,7 +339,9 @@ PUBLIC std::istream & operator>>(std::istream &is, Fraction &r)
 	return is >> r.nom >> r.denom;
 }
  
-PUBLIC static Fraction random()
+PUBLIC Fraction Fraction::random()
 {
+	srand(time(0));
 
+	return Fraction{ rand() % 20 - 10 , rand() % 20 - 9 };
 }
