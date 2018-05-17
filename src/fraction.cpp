@@ -69,11 +69,6 @@ PRIVATE void Fraction::commonCtorFunc(const Fraction &r)
 	nom = r.nom;
 	denom = r.denom;
 
-	if (denom < 0)
-	{
-		nom = -nom;
-	}
-
 	simplify();
 }
 
@@ -119,27 +114,47 @@ PUBLIC Fraction &Fraction::operator=(Fraction &&r)
 	return *this;
 }
 
-PUBLIC Fraction::Fraction(double)
+PUBLIC Fraction::Fraction(double dVal)
 {
+	const int	precision = 1'000'000'000;
+	int			integral = std::floor(dVal);
+	double		frac = dVal - integral;
+	int			divider = gcd(round(frac * precision), precision);
 
+	denom = precision / divider;
+	nom = (round(frac * precision) / divider) + (integral * denom);
+
+	simplify();
 }
 
 PUBLIC Fraction::Fraction(const char *p) 
 {
 	if ((*p == '-') || (*p == '+') || ('0' <= *p && *p <= '9'))
 	{
-		if (*p == '-')
-		{
+		char tempNom[9] = "";
+		char tempDenom[9] = "";
+		unsigned int  buffLen = strlen(p);
 
-		}
-		else if (*p == '+')
+		for (int i = 0; i < buffLen; i++)
 		{
-
+			if (p[i] == '/')
+			{
+				memcpy(tempNom, p, i);
+				memcpy(tempDenom, &p[i + 1], buffLen - 1 - i);
+				break;
+			}
 		}
-		else if ('0' <= *p && *p <= '9')
+
+		if (strlen(const_cast<char*>(tempNom)) == 0)
 		{
-
+			memcpy(tempNom, p, buffLen);
+			tempDenom[0] = '1';
 		}
+
+		nom = atoi(tempNom);
+		denom = atoi(tempDenom);
+
+		simplify();
 	}
 	else
 	{
@@ -268,11 +283,6 @@ PUBLIC Fraction Fraction::operator+()const
 
 PUBLIC Fraction Fraction::operator-()const
 {
-	if (denom < 0)
-	{
-		-nom;
-	}
-
 	return *this;
 }
  
@@ -305,7 +315,20 @@ PUBLIC Fraction &Fraction::operator*=(const Fraction &r)
  
 PUBLIC std::ostream & operator<<(std::ostream &os, const Fraction &r)
 {
-	return os << r.nom << "/" << r.denom << "\n";
+	Fraction temp;
+
+	if (r.denom < 0)
+	{
+		temp.denom = -r.denom;
+		temp.nom = -r.nom;
+	}
+	else
+	{
+		temp.denom = r.denom;
+		temp.nom = r.nom;
+	}
+
+	return os << temp.nom << " / " << temp.denom << "\n";
 }
 
 PUBLIC std::istream & operator>>(std::istream &is, Fraction &r)
