@@ -119,13 +119,13 @@ PUBLIC Fraction &Fraction::operator=(Fraction &&r)
 
 PUBLIC Fraction::Fraction(double dVal)
 {
-	const int	precision = 1'000'000'000;
-	int			integral = std::floor(dVal);
-	double		frac = dVal - integral;
-	int			divider = gcd(round(frac * precision), precision);
+	const int	precision	= 1'000'000'000;
+	int			integral	= static_cast<int>(std::floor(dVal));
+	double		frac		= dVal - integral;
+	int			divider		= gcd(static_cast<int>(round(frac * precision)), precision);
 
 	denom = precision / divider;
-	nom = (round(frac * precision) / divider) + (integral * denom);
+	nom = static_cast<int>((round(frac * precision) / divider) + (integral * denom));
 
 	simplify();
 }
@@ -138,7 +138,7 @@ PUBLIC Fraction::Fraction(const char *p)
 		char tempDenom[9] = "";
 		unsigned int  buffLen = strlen(p);
 
-		for (int i = 0; i < buffLen; i++)
+		for (unsigned int i = 0; i < buffLen; i++)
 		{
 			if (p[i] == '/')
 			{
@@ -341,7 +341,7 @@ PUBLIC std::istream & operator>>(std::istream &is, Fraction &r)
  
 PUBLIC Fraction Fraction::random()
 {
-	srand(time(0));
+	srand(static_cast<unsigned int>(time(0)));
 
 	return Fraction{ rand() % 20 - 10 , rand() % 20 - 9 };
 }

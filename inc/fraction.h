@@ -83,13 +83,14 @@ public:
 	// utilities
 	static Fraction random();  // nom or denom are less than 10
 	
-	// variables
-	int nom;
-	int denom;
 private:
 	static int gcd(int x, int y);
 	void simplify();
 	void commonCtorFunc(const Fraction &r);
+	
+	// variables
+	int nom;
+	int denom;
 };
 
 //============================================================================//
