@@ -1,7 +1,7 @@
 //============================================================================//
 //
 //	File Name	: fraction.c
-//	Create Date	: 
+//	Create Date	: 2018/05/15
 //	Designers	: Deniz Uras
 //	Description	: Fraction Class
 //
@@ -17,7 +17,7 @@
 #include "utility.h"
 
 #include <iostream>
-#include <time.h>
+#include <ctime>
 
 //============================================================================//
 //==========================  MACRO DEFINITIONS ==============================//
@@ -32,7 +32,9 @@
 //============================================================================//
 //=========================== CLASS DEFINITIONS ==============================//
 //============================================================================//
+class BadFraction : public std::exception {
 
+};
 
 //============================================================================//
 //========================== FUNCTION PROTOTYPES =============================//
@@ -136,9 +138,9 @@ PUBLIC Fraction::Fraction(const char *p)
 	{
 		char tempNom[9] = "";
 		char tempDenom[9] = "";
-		unsigned int  buffLen = strlen(p);
+		size_t  buffLen = strlen(p);
 
-		for (unsigned int i = 0; i < buffLen; i++)
+		for (size_t i = 0; i < buffLen; i++)
 		{
 			if (p[i] == '/')
 			{
@@ -169,15 +171,30 @@ PUBLIC bool operator<(const Fraction &r1, const Fraction &r2)
 {
 	if (r1.denom != r2.denom)
 	{
-		int tempNom1 = r1.nom * r2.denom;
-		int tempNom2 = r2.nom * r1.denom;
+		int tempNom1 = r1.nom;
+		int tempNom2 = r2.nom;
+		int tempDenom1 = r1.denom;
+		int tempDenom2 = r2.denom;
+
+		if (r1.denom < 0)
+		{
+			tempNom1 *= -1;
+			tempDenom1 *= -1;
+		}
+
+		if (r2.denom < 0)
+		{
+			tempNom2 *= -1;
+			tempDenom2 *= -1;
+		}
+
+		tempNom1 *= tempDenom2;
+		tempNom2 *= tempDenom1;
 
 		return tempNom1 < tempNom2;
 	}
-	else
-	{
-		return r1.nom < r2.nom;
-	}
+		
+	return r1.nom < r2.nom;
 }
 
 PUBLIC bool operator>(const Fraction &r1, const Fraction &r2)
@@ -286,15 +303,13 @@ PUBLIC Fraction Fraction::operator+()const
 
 PUBLIC Fraction Fraction::operator-()const
 {
-	return *this;
+	return (-1) * (*this);
 }
  
-/*
-PUBLIC Fraction::operator bool()
+PUBLIC Fraction::operator bool()const
 {
-	return;
+	return nom == 0 ? false : true;
 }
-*/
 
 PUBLIC Fraction &Fraction::operator+=(const Fraction &r)
 {
@@ -331,12 +346,31 @@ PUBLIC std::ostream & operator<<(std::ostream &os, const Fraction &r)
 		temp.nom = r.nom;
 	}
 
-	return os << temp.nom << " / " << temp.denom << "\n";
+	return os << temp.nom << "/" << temp.denom;
 }
 
 PUBLIC std::istream & operator>>(std::istream &is, Fraction &r)
 {
-	return is >> r.nom >> r.denom;
+	int	 nomVal   = 0;
+	int	 denomVal = 1;
+	char c = '0';
+
+	is >> nomVal;
+	is >> c;
+
+	if (c == '/')
+	{
+		is >> denomVal;
+	}
+	else
+	{
+		is.putback(c);
+		denomVal = 1;
+	}
+
+	r = { nomVal, denomVal };
+
+	return is;
 }
  
 PUBLIC Fraction Fraction::random()

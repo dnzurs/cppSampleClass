@@ -1,7 +1,7 @@
 //============================================================================//
 //
 //	File Name	: fraction.h
-//	Create Date	: 
+//	Create Date	: 2018/05/15
 //	Designers	: Deniz Uras
 //	Description	: Fraction Class
 //
@@ -29,10 +29,6 @@
 //============================================================================//
 //=========================== CLASS DEFINITIONS ==============================//
 //============================================================================//
-class BadFraction : public std::exception {
-
-};
-
 class Fraction {
 public:
 	// constructors and destructor
@@ -63,7 +59,7 @@ public:
 	Fraction &operator--();		//prefix
 	Fraction operator--(int);	//postfix
 
-	// signs
+	// sign operators
 	Fraction operator+()const;	//sign op.
 	Fraction operator-()const;  //sign op.
 

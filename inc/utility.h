@@ -1,9 +1,9 @@
 //============================================================================//
 //
 //	File Name	: utility.h
-//	Create Date	: 
-//	Designers	: 
-//	Description	: 
+//	Create Date	: 2018/05/15
+//	Designers	: Deniz Uras
+//	Description	: This header contains common codes.
 //
 //	Important Notes:
 //
