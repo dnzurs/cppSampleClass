@@ -77,19 +77,16 @@ PUBLIC Date::Date(const std::string &s)
 PUBLIC int Date::MonthDay()const
 {
 	return 0;
-
 }
 
 PUBLIC int Date::WeekDay()const
 {
 	return 0;
-
 }
 
 PUBLIC int Date::YearDay()const
 {
 	return 0;
-
 }
 
 PUBLIC int Date::Year()const

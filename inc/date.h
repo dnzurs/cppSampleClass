@@ -55,10 +55,10 @@ public:
 	Date &operator-=(int n);
 
 	//fixes
-	Date &operator++();		//onek
-	Date operator++(int);	//sonek
-	Date &operator--();		//onek
-	Date operator--(int);	//sonek
+	Date &operator++();		//prefix
+	Date operator++(int);	//suffix
+	Date &operator--();		//prefix
+	Date operator--(int);	//suffix
 
 	// comparing operators
 	friend bool operator<(const Date &d1, const Date &d2);
