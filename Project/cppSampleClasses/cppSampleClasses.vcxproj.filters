@@ -24,5 +24,8 @@
     <ClCompile Include="..\..\src\fraction.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\date.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

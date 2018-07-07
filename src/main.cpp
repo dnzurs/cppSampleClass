@@ -1,8 +1,38 @@
+#define  _CRT_SECURE_NO_WARNINGS
+
+
+#include "date.h"
 #include <iostream>
-#include "fraction.h"
+
 
 using namespace std;
 
+#define GENERAL_MAIN		(1)
+#define DATE_TEST_MAIN		(0)
+#define FRACTION_TEST_MAIN	(0)
+
+#if GENERAL_MAIN
+int main()
+{
+
+
+}
+#elif DATE_TEST_MAIN
+int main()
+{
+	Date date1(1,1,1980);
+	Date date2;
+	Date date3 = "20/11/2018";
+
+
+	cout << date1 << "\n";
+	cout << date2 << "\n";
+	cout << date3 << "\n";
+
+
+	getchar();
+}
+#elif FRACTION_TEST_MAIN
 int main()
 {
 	Fraction f1 = Fraction::random();
@@ -80,4 +110,7 @@ int main()
 
 	cout << "\n";
 
+	getchar();
+	getchar();
 }
+#endif

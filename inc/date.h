@@ -25,6 +25,7 @@
 //============================================================================//
 //=========================== TYPE DEFINITIONS ===============================//
 //============================================================================//
+class PimplDate;
 
 //============================================================================//
 //=========================== CLASS DEFINITIONS ==============================//
@@ -39,6 +40,7 @@ public:
 	Date(int d, int m, int y);		// ctor
 	Date(const char *pstr);			// ctor as cstring gg/aa/yyyyy
 	Date(const std::string &s);		// ctor as string  gg/aa/yyyyy
+	~Date();						// destructor
 
 	//accesors
 	int MonthDay()const;	//ayin kaci
@@ -72,12 +74,12 @@ public:
 	friend int operator-(const Date &r1, const Date &r2);  //aradaki gun farki
 
 	// sign operators
-	Date operator+(int)const;
-	Date operator-(int)const;
+	Date operator+(int n)const;
+	Date operator-(int n)const;
 
 	// io
 	friend std::ostream &operator<<(std::ostream &os, const Date &r);  //12 Mayis 1987 Sali
-	friend std::istream &operator>>(std::istream &is, Date &r);
+	friend std::istream &operator>>(std::istream &is, Date &r);		   //gg/aa/yyyy
 	
 	// conversion operators
 	std::string to_string()const;
@@ -86,9 +88,11 @@ public:
 	static Date randomDate();
 
 private:
-	int day;
-	int month;
-	int year;
+	PimplDate *date;
+
+	void setDate();
+	void increaseDayOfDate(int n);
+	void decreaseDayOfDate(int n);
 };
 
 //============================================================================//

@@ -83,7 +83,6 @@ private:
 	static int gcd(int x, int y);
 	void simplify();
 	void commonCtorFunc(const Fraction &r);
-	
 	// variables
 	int nom;
 	int denom;
@@ -94,7 +93,4 @@ private:
 //============================================================================//
 
 #endif //_FRACTION_H_
-#if 1
-
-#endif
 
