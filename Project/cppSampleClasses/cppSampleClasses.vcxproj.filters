@@ -27,5 +27,8 @@
     <ClCompile Include="..\..\src\date.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\testCode.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
