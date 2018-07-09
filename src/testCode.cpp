@@ -130,8 +130,11 @@ void testOfDateClass()
 	Date date1(1, 1, 1980);
 	Date date2;
 	Date date3 = "20/11/2018";
+	std::string strDate{ "27/08/1993" };
+	Date date4(strDate);
 
 	std::cout << date1 << "\n";
 	std::cout << date2 << "\n";
 	std::cout << date3 << "\n";
+	std::cout << date4 << "\n";
 }

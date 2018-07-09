@@ -211,10 +211,34 @@ PUBLIC Date::Date(const char *pstr)
 	setDate();
 }
 
-PUBLIC Date::Date(const std::string &s)
+PUBLIC Date::Date(const std::string &str)
 {
+	std::string s(str);
+	std::string delimiter = "/";
+	std::string token;
+	size_t pos = 0;
+	int	counter = 0;
 
+	date = getMemory();
 
+	while ((pos = s.find(delimiter)) != std::string::npos) 
+	{
+		token = s.substr(0, pos);
+
+		if (counter == 0)
+		{
+			date->mday = std::stoi(token, 0, 10);
+		}
+		else if (counter == 1)
+		{
+			date->month = std::stoi(token, 0, 10);
+		}
+
+		s.erase(0, pos + delimiter.length());
+		++counter;
+	}
+
+	date->year = std::stoi(s, 0, 10);
 
 	// week day and year day of date
 	setDate();
