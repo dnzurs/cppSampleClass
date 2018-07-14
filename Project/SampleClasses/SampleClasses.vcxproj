@@ -79,7 +79,7 @@
     <SourcePath>C:\Users\USER\Desktop\GitHub\cppSampleClasses\src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\USER\Desktop\GitHub\cppSampleClass\Project\SampleClasses\inc;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\USER\Desktop\GitHub\cpp_programming\Project\SampleClasses\inc;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>C:\Users\USER\Desktop\GitHub\cppSampleClass\Project\SampleClasses\inc;$(IncludePath)</IncludePath>
