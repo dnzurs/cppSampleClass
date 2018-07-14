@@ -1,3 +1,3 @@
 # Introduction
 
-This project includes the some classes that is coded by C ++ language.
+This project includes the sample classes, the design patterns and training codes that are coded by C ++ language.
