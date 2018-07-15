@@ -40,6 +40,8 @@ public:
 	Date(int d, int m, int y);		// ctor
 	Date(const char *pstr);			// ctor as cstring gg/aa/yyyyy
 	Date(const std::string &s);		// ctor as string  gg/aa/yyyyy
+	Date(const Date &r);			// copy ctor
+	Date(Date &&r);					// move ctor
 	~Date();						// destructor
 
 	//accesors

@@ -244,6 +244,28 @@ PUBLIC Date::Date(const std::string &str)
 	setDate();
 }		
 
+PUBLIC Date::Date(const Date &r)
+{
+	date = getMemory();
+
+	this->date->mday  = r.date->mday;
+	this->date->month = r.date->month;
+	this->date->wday  = r.date->wday;
+	this->date->yday  = r.date->yday;
+	this->date->year  = r.date->year;
+}
+
+PUBLIC Date::Date(Date &&r)	
+{
+	date = getMemory();
+
+	this->date->mday  = r.date->mday;
+	this->date->month = r.date->month;
+	this->date->wday  = r.date->wday;
+	this->date->yday  = r.date->yday;
+	this->date->year  = r.date->year;
+}
+
 PUBLIC Date::~Date(void)
 {
 	delete date;

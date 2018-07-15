@@ -132,9 +132,13 @@ void testOfDateClass()
 	Date date3 = "20/11/2018";
 	std::string strDate{ "27/08/1993" };
 	Date date4(strDate);
+	Date date5 = Date::randomDate();
+
 
 	std::cout << date1 << "\n";
 	std::cout << date2 << "\n";
 	std::cout << date3 << "\n";
 	std::cout << date4 << "\n";
+	std::cout << date5 << "\n";
+
 }
