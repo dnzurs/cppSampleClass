@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\USER\Desktop\GitHub\cpp_programming\common\inc;C:\Users\USER\Desktop\GitHub\cpp_programming\Project\SampleClasses\inc;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)SampleClasses\inc;$(SolutionDir)..\common\inc;$(IncludePath)</IncludePath>
     <SourcePath>C:\Users\USER\Desktop\GitHub\cppSampleClass\Project\SampleClasses\src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
