@@ -18,6 +18,7 @@
 
 #include <iostream>
 #include <ctime>
+#include <sstream>
 
 //============================================================================//
 //==========================  MACRO DEFINITIONS ==============================//
@@ -51,9 +52,9 @@ public:
 //============================================================================//
 const std::string monthName[] =
 {
-	"Ocak",		"Subat",	"Mart", 
+	"Ocak",		"Subat",	"Mart",
 	"Nisan",	"Mayis",	"Haziran",
-	"Temmuz",	"Agustos",	"Eylul", 
+	"Temmuz",	"Agustos",	"Eylul",
 	"Ekim",		"Kasim",	"Aralik"
 };
 
@@ -64,7 +65,7 @@ const std::string weekDayName[] =
 
 const int dayOfMonths[2][12] =
 {
-	{ 31,28,31,30,31,30,31,31,30,31,30,31 },	 
+	{ 31,28,31,30,31,30,31,31,30,31,30,31 },
 	{ 31,29,31,30,31,30,31,31,30,31,30,31 }		// for leap year
 };
 
@@ -130,7 +131,7 @@ PRIVATE	void Date::setDate()
 		date->yday += dayOfMonths[IS_LEAP_YEAR(date->year)][i];
 	}
 
-	date->wday = findDayOfWeek(date->mday,date->month,date->year);
+	date->wday = findDayOfWeek(date->mday, date->month, date->year);
 }
 
 PRIVATE PimplDate* getMemory(void)
@@ -141,7 +142,7 @@ PRIVATE PimplDate* getMemory(void)
 //============================================================================//
 //============================ PUBLIC FUNCTIONS ==============================//
 //============================================================================//
-PUBLIC Date::Date() 
+PUBLIC Date::Date()
 {
 	time_t	nowTime = time(0);
 	tm		currDate;
@@ -150,12 +151,12 @@ PUBLIC Date::Date()
 
 	date = getMemory();
 
-	date->mday	= currDate.tm_mday;
-	date->wday	= currDate.tm_wday;
-	date->yday	= currDate.tm_yday;
+	date->mday = currDate.tm_mday;
+	date->wday = currDate.tm_wday;
+	date->yday = currDate.tm_yday;
 	date->month = currDate.tm_mon + 1;
-	date->year	= currDate.tm_year + 1900;
-}	
+	date->year = currDate.tm_year + 1900;
+}
 
 PUBLIC Date::Date(int d, int m, int y)
 {
@@ -167,9 +168,9 @@ PUBLIC Date::Date(int d, int m, int y)
 		{
 			if (1 <= d && d <= 31)
 			{
-				date->mday	= d;
+				date->mday = d;
 				date->month = m;
-				date->year	= y;
+				date->year = y;
 
 				// week day and year day of date
 				setDate();
@@ -180,15 +181,15 @@ PUBLIC Date::Date(int d, int m, int y)
 	{
 		Date();
 	}
-}	
+}
 
 PUBLIC Date::Date(const char *pstr)
 {
-	char temp[5] = { 0 };	
+	char temp[5] = { 0 };
 
-	/* 
-		scaning -> gg/aa/yyyy
-	    index   -> 0123456789
+	/*
+	scaning -> gg/aa/yyyy
+	index   -> 0123456789
 	*/
 
 	date = getMemory();
@@ -221,7 +222,7 @@ PUBLIC Date::Date(const std::string &str)
 
 	date = getMemory();
 
-	while ((pos = s.find(delimiter)) != std::string::npos) 
+	while ((pos = s.find(delimiter)) != std::string::npos)
 	{
 		token = s.substr(0, pos);
 
@@ -242,28 +243,28 @@ PUBLIC Date::Date(const std::string &str)
 
 	// week day and year day of date
 	setDate();
-}		
+}
 
 PUBLIC Date::Date(const Date &r)
 {
 	date = getMemory();
 
-	this->date->mday  = r.date->mday;
+	this->date->mday = r.date->mday;
 	this->date->month = r.date->month;
-	this->date->wday  = r.date->wday;
-	this->date->yday  = r.date->yday;
-	this->date->year  = r.date->year;
+	this->date->wday = r.date->wday;
+	this->date->yday = r.date->yday;
+	this->date->year = r.date->year;
 }
 
-PUBLIC Date::Date(Date &&r)	
+PUBLIC Date::Date(Date &&r)
 {
 	date = getMemory();
 
-	this->date->mday  = r.date->mday;
+	this->date->mday = r.date->mday;
 	this->date->month = r.date->month;
-	this->date->wday  = r.date->wday;
-	this->date->yday  = r.date->yday;
-	this->date->year  = r.date->year;
+	this->date->wday = r.date->wday;
+	this->date->yday = r.date->yday;
+	this->date->year = r.date->year;
 }
 
 PUBLIC Date::~Date(void)
@@ -294,8 +295,8 @@ PUBLIC int Date::Year()const
 PUBLIC int Date::Month()const
 {
 	return date->month;
-}		
-						
+}
+
 PUBLIC Date & Date::setMonth(int m)
 {
 	date->month = m;
@@ -336,7 +337,7 @@ PUBLIC Date & Date::operator++()
 	increaseDayOfDate(1);
 
 	return *this;
-}		
+}
 
 PUBLIC Date Date::operator++(int)
 {
@@ -345,7 +346,7 @@ PUBLIC Date Date::operator++(int)
 	increaseDayOfDate(1);
 
 	return tempDate;
-}	
+}
 
 PUBLIC Date & Date::operator--()
 {
@@ -357,11 +358,11 @@ PUBLIC Date & Date::operator--()
 PUBLIC Date Date::operator--(int)
 {
 	Date tempDate(date->mday, date->month, date->year);
-	
+
 	decreaseDayOfDate(1);
 
 	return tempDate;
-}	
+}
 
 PUBLIC bool operator<(const Date &d1, const Date &d2)
 {
@@ -430,8 +431,8 @@ PUBLIC int operator-(const Date &r1, const Date &r2)
 	}
 
 	return tempDay;
-}  
-													   
+}
+
 PUBLIC Date Date::operator+(int n)const
 {
 	Date tempDate(date->mday, date->month, date->year);
@@ -452,8 +453,11 @@ PUBLIC Date Date::operator-(int n)const
 
 PUBLIC std::ostream &operator<<(std::ostream &os, const Date &r)
 {
-	return os << r.date->mday << " " << monthName[r.date->month - 1] << " " << r.date->year << " " << weekDayName[r.date->wday - 1];
-} 
+	std::ostringstream osst;
+
+	osst << r.date->mday << " " << monthName[r.date->month - 1] << " " << r.date->year << " " << weekDayName[r.date->wday - 1];
+	return os << osst.str();
+}
 
 PUBLIC std::istream &operator>>(std::istream &is, Date &r)
 {
@@ -463,11 +467,11 @@ PUBLIC std::istream &operator>>(std::istream &is, Date &r)
 
 	Date tempDate(tempStr);
 
-	r.date->mday	= tempDate.date->mday;
-	r.date->month	= tempDate.date->month;
-	r.date->year	= tempDate.date->year;
-	r.date->yday	= tempDate.date->yday;
-	r.date->wday	= tempDate.date->wday;
+	r.date->mday = tempDate.date->mday;
+	r.date->month = tempDate.date->month;
+	r.date->year = tempDate.date->year;
+	r.date->yday = tempDate.date->yday;
+	r.date->wday = tempDate.date->wday;
 
 	return is;
 }
@@ -481,9 +485,9 @@ PUBLIC Date Date::randomDate()
 {
 	Date tempDate;
 
-	tempDate.date->year		= rand() % (random_max_year - random_min_year) + random_min_year;
-	tempDate.date->month	= rand() % 12 + 1;
-	tempDate.date->mday		= rand() % dayOfMonths[IS_LEAP_YEAR(tempDate.date->year)][tempDate.date->month] + 1;
+	tempDate.date->year = rand() % (random_max_year - random_min_year) + random_min_year;
+	tempDate.date->month = rand() % 12 + 1;
+	tempDate.date->mday = rand() % dayOfMonths[IS_LEAP_YEAR(tempDate.date->year)][tempDate.date->month] + 1;
 
 	// week day and year day of date
 	tempDate.setDate();
